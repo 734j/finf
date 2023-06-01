@@ -5,6 +5,6 @@ Find in file
 
 TODO:
 - Create functionality to find a string within a file (-f)
-
+- Fix this shitty ass code, nothing is working properly.
 - Fix eventual bugs. 
 - Conduct some testing. Write test cases and then execute tests. 
