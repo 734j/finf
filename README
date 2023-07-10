@@ -1,14 +1,12 @@
 finf
 Find in file
 
-Basically grep but worse and with less functionality.
-
-Filename to search in is currently hardcoded to file.txt
+Basically grep but worse in every way. When comparing the speed of this to grep, this program is significantly slower. 
 
 
 TODO:
-- Create functionality to find a string within a file (-f) [DONE] 
+- Create functionality to find a string within a file (-s) [DONE] 
 - Create functionality that prints out the whole line where a match was found.
-- Create functionality to specify a file. The program is currently hardcoded to only search inside files called: file.txt
+- Create functionality to specify a file (-f). [DONE] 
 - Fix eventual bugs. 
 - Conduct some testing. Write test cases and then execute tests. 

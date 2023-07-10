@@ -4,34 +4,30 @@
 #include <string.h>
 #include "finf.h"
 
-#define USAGE "Usage: [-h] [-f string]\n"  
+#define USAGE "Usage: [-h] [-s string] [-f file]\n"  
 
 
 int main(int argc, char *argv[])
 {
 
-
+    char *file = NULL;
+    char *string = NULL;
     int opt;
-    int cnt = 0;
-    while ((opt = getopt(argc, argv, "hf:")) != -1){
-        cnt++;
-        if(cnt > 1) {
-            printf("Only 1 argument at a time!\n");
-            return EXIT_FAILURE;
-        }
-    }
-    optind = 0;
     
-    while ((opt = getopt(argc, argv, "hf:")) != -1) {
+    while ((opt = getopt(argc, argv, "hs:f:")) != -1) {
         switch (opt) {
         case 'h':
         
             printf("%s", USAGE);
+	    return EXIT_SUCCESS;
             break;
+	
+	case 'f':
+	    file = optarg;
+	    break;
 
-        case 'f':
-            
-            finf(optarg);
+        case 's':
+            string = optarg;
             break;
 
         default: 
@@ -39,10 +35,19 @@ int main(int argc, char *argv[])
             return EXIT_FAILURE;
         }
     }
-
+    
     if (argc == 1) {
         printf("%s", USAGE);
+	return EXIT_FAILURE;
     }
+
+
+    if (file == NULL || string == NULL) {
+    	fprintf(stderr, "Both -f and -s are required.\n");
+	fprintf(stderr, "%s", USAGE);
+	return EXIT_FAILURE;
+    }
+    finf(string, file);
 
 
     return EXIT_SUCCESS;

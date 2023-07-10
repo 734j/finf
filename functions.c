@@ -3,49 +3,46 @@
 #include "finf.h"
 #include <string.h>
 
-void finf (char search[]) { // First version of finf. VERY BAD. 
+void finf(char search[], char filename[]) {
     int i = 0, k = 0;
     size_t searchsz = strlen(search);
     int startindex = 0;
     int findcount = 0;
-    FILE* file = fopen("file.txt", "r");
+    FILE* file = fopen(filename, "r");
     if (file == NULL) {
         printf("Failed to open the file.\n");
         return;
     }
 
-    fseek(file, 0, SEEK_END); 
-    long filesize = ftell(file); // Determine the amound of characters in a file. 
-    
-    while (startindex != filesize) {
+    fseek(file, 0, SEEK_END);
+    long filesize = ftell(file);
+
+    while (startindex != filesize) { // Update the condition here
 
         char temp[searchsz];
         int foundflag = 0;
 
-        fseek(file, startindex, SEEK_SET); // startindex
+        fseek(file, startindex, SEEK_SET);
 
-        for (i = 0 ; i < searchsz ; i++) { // Assign first searchsz letters of contacts.txt to temp
+        for (i = 0 ; i < searchsz ; i++) {
             char ch = fgetc(file);
             if (ch == EOF)
                 break;
             temp[i] = ch;
-
         }
 
-        for (k = 0; k < searchsz; k++){ // Compare temp and search
-                if (temp[k] == search[k]) {
-                    foundflag++;
-                    if (foundflag == searchsz) {
-                        findcount++;
-                        printf("Word found.\n");   
-                    } // Check if the word is found or not. If the foundflag = searchsz then the word was found. 
-                } else { 
-                    break; 
-                
+        for (k = 0; k < searchsz; k++) {
+            if (temp[k] == search[k]) {
+                foundflag++;
+                if (foundflag == searchsz) {
+                    findcount++;
+                    printf("Word found.\n");
+                }
+            } else {
+                break;
             }
         }
         startindex++;
-
     }
 
     printf("The string or character \"");
@@ -55,5 +52,5 @@ void finf (char search[]) { // First version of finf. VERY BAD.
     printf("\" was found %d times.\n", findcount);
 
     fclose(file);
-
 }
+
