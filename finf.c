@@ -9,10 +9,11 @@
 
 int main(int argc, char *argv[])
 {
-
     char *file = NULL;
     char *string = NULL;
     int opt;
+    int f_req = 0;
+    int s_req = 0;
     
     while ((opt = getopt(argc, argv, "hs:f:")) != -1) {
         switch (opt) {
@@ -23,11 +24,15 @@ int main(int argc, char *argv[])
             break;
 	
 	case 'f':
-	    file = optarg;
+	    file = malloc(strlen(optarg) + 1);
+	    strcpy(file, optarg);
+	    f_req++;
 	    break;
 
         case 's':
-            string = optarg;
+            string = malloc(strlen(optarg) + 1);
+	    strcpy(string, optarg);
+	    s_req++;
             break;
 
         default: 
@@ -42,14 +47,12 @@ int main(int argc, char *argv[])
     }
 
 
-    if (file == NULL || string == NULL) {
+    if (f_req == 0 || s_req == 0) {
     	fprintf(stderr, "Both -f and -s are required.\n");
 	fprintf(stderr, "%s", USAGE);
-	return EXIT_FAILURE;
+	return EXIT_FAILURE; 
     }
     finf(string, file);
-
-
+    
     return EXIT_SUCCESS;
-
 }

@@ -4,8 +4,8 @@
 #include <string.h>
 
 void finf(char search[], char filename[]) {
-    int i = 0, k = 0;
-    size_t searchsz = strlen(search);
+    int /*i = 0,*/k = 0;
+    size_t searchsz = strlen(search); // size of the search string
     int startindex = 0;
     int findcount = 0;
     FILE* file = fopen(filename, "r");
@@ -17,27 +17,28 @@ void finf(char search[], char filename[]) {
     fseek(file, 0, SEEK_END);
     long filesize = ftell(file);
 
-    while (startindex != filesize) { // Update the condition here
+    while (startindex != filesize) { //keeps looping until startindex equals to the filesize
 
-        char temp[searchsz];
         int foundflag = 0;
 
         fseek(file, startindex, SEEK_SET);
 
-        for (i = 0 ; i < searchsz ; i++) {
-            char ch = fgetc(file);
-            if (ch == EOF)
-                break;
-            temp[i] = ch;
-        }
 
         for (k = 0; k < searchsz; k++) {
-            if (temp[k] == search[k]) {
-                foundflag++;
-                if (foundflag == searchsz) {
-                    findcount++;
-                    printf("Word found.\n");
-                }
+        	
+	char ch = fgetc(file);
+	if (ch == EOF)
+	    break;
+		
+	if (ch == search[k]) {
+            foundflag++;
+               
+	if (foundflag == searchsz) {
+            findcount++;
+            printf("Word found.\n");
+		// print the line where word was found
+		// do the logic here
+	}
             } else {
                 break;
             }
